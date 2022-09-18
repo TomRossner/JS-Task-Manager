@@ -360,4 +360,42 @@ body{
             }
         }
     }
+
+    @media screen and (min-width: 250px) and (max-width: 650px){
+        .container{
+            max-width: 100%;
+            margin: 0 auto 1rem auto;
+            
+            h1.title{
+                font-size: 2.2rem;
+            }
+
+            hr{
+                max-width: 25%;
+            }
+            
+            .btn{
+                cursor: pointer;
+                #plusIcon{
+                    transition: transform 0.2s;
+                }
+            }
+            .btn:active{
+                color: rgb(78, 245, 147);
+                background-color: rgb(60, 60, 60); 
+                #plusIcon{
+                    transform: rotate(-90deg);
+                    scale: 1.2;
+                }
+            }
+
+            input#taskInput{
+                width: 60%;
+            }   
+
+            .tasks-list-container{
+                width: 70%;
+            }
+        }
+    }
 }
