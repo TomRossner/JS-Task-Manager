@@ -18,9 +18,6 @@ class Task{
     }
 
     add(text){
-        if (typeof text !== "string" || text.length < 2) {
-            throw new Error(`Task must be at least ${minimumCharacters} characters`);
-        }
         const task = {
             task: text,
             isCompleted: false,
