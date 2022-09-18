@@ -8,7 +8,7 @@ const tasksContainer = document.getElementById("tasksContainer");
 const tasksList = TasksManager.getTasks();
 const errorContainer = document.getElementById("errors");
 const minimumCharacters = 3;
-const maximumCharacters = 50;
+const maximumCharacters = 35;
 const myTasksTitle = document.getElementById("myTasksTitle");
 const noTasks = document.getElementById("noTasks");
 const clearAllBtn = document.getElementById("clearTasks");
@@ -32,7 +32,7 @@ tasksContainer.addEventListener("click", function (e){
 // Functions
 function isValid(event){
     const input = document.getElementById("taskInput");
-    if(event.key === "Enter" && input.value.length > 2 && input.value.length <= 25){
+    if(event.key === "Enter" && input.value.length > minimumCharacters && input.value.length <= maximumCharacters){
         console.log(input.value.length);
         createTask();
         errorContainer.style.opacity = 0;
@@ -42,13 +42,13 @@ function isValid(event){
         errorContainer.innerHTML = `Task must contain at least ${minimumCharacters} characters.`;
         errorContainer.style.opacity = 1;
     }
-    if(event.key === "Enter" && input.value.length > 25){
+    if(event.key === "Enter" && input.value.length > maximumCharacters){
         errorContainer.innerHTML = `Task must not exceed ${maximumCharacters} characters.`;
         errorContainer.style.opacity = 1;
     }
 
 
-    if(event.type === "click" && input.value.length > 2 && input.value.length <= 25){
+    if(event.type === "click" && input.value.length > minimumCharacters && input.value.length <= maximumCharacters){
         console.log(input.value.length);
         createTask();
         errorContainer.style.opacity = 0;
@@ -58,7 +58,7 @@ function isValid(event){
         errorContainer.innerHTML = `Task must contain at least ${minimumCharacters} characters.`;
         errorContainer.style.opacity = 1;
     }
-    if(event.type === "click" && input.value.length > 25){
+    if(event.type === "click" && input.value.length > maximumCharacters){
         errorContainer.innerHTML = `Task must not exceed ${maximumCharacters} characters.`;
         errorContainer.style.opacity = 1;
     }
