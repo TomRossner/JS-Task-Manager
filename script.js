@@ -1,4 +1,4 @@
-const TasksManager = new Task();
+const TasksManager = new TaskManager();
 renderTasks();
 const addBtn = document.getElementById("addButton");
 const checkButtons = document.querySelectorAll(".btn.check");

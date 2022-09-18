@@ -1,4 +1,12 @@
 class Task{
+    constructor(text){
+        this.task = text,
+        this.isCompleted = false,
+        this.dateCreated = new Date().toLocaleString();
+    }
+}
+
+class TaskManager{
     tasks = [];
     id = this.tasks.length + 1;
     constructor() {
@@ -14,15 +22,10 @@ class Task{
 
     save() {
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
-        // console.log(localStorage)
     }
 
     add(text){
-        const task = {
-            task: text,
-            isCompleted: false,
-            dateCreated: new Date,
-        };
+        const task = new Task(text)
         this.tasks.push(task);
         this.save();
     }
