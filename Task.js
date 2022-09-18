@@ -27,7 +27,6 @@ class Task{
             dateCreated: new Date,
         };
         this.tasks.push(task);
-        console.log(this.tasks)
         this.save();
     }
     deleteTask(index){
@@ -38,7 +37,6 @@ class Task{
     updateCompletion(task, state){
         if(state === true){
             task.isCompleted = true;
-            console.log(task);
             this.save();
             return;
         }
