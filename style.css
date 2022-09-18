@@ -173,7 +173,7 @@ body .container .tasks-list-container .task.completed .btn.check:hover i.bi.bi-a
   transform: rotate(-360deg);
 }
 body .container #clearTasks {
-  background-color: rgb(255, 149, 145);
+  background-color: rgb(255, 116, 111);
   color: rgb(230, 230, 230);
   border: none;
   outline: none;
