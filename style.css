@@ -111,6 +111,7 @@ body .container .tasks-list-container #noTasks {
 body .container .tasks-list-container .task {
   color: rgb(230, 230, 230);
   display: flex;
+  overflow: hidden;
   justify-content: space-between;
   background-color: rgb(60, 60, 60);
   padding: 0.2rem 0.5rem;
