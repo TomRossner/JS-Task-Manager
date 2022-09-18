@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Task Manager | Tom Rossner</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link href='https://css.gg/css' rel='stylesheet'>
+    <script defer src="./script.js"></script>
+    <script src="./Task.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Task Manager</h1>
+        <hr>
+        <div class="input-container">
+            <input type="text" id="taskInput" class="task-input" placeholder="I need to...">
+            <button id="addButton" class="btn"><span><i id="plusIcon" class="gg-math-plus"></i></span></button>
+        </div>
+        <p id="errors"></p>
+        <div id="tasksContainer" class="tasks-list-container">
+            <h2 id="myTasksTitle" class="title">My Tasks</h2>
+            <p id="noTasks"></p>
+        </div>
+        <button class="btn" id="clearTasks">Clear All</button>
+    </div>
+    <footer><p>by Tom Rossner&copy; 2022</p></footer>
+</body>
+</html>
