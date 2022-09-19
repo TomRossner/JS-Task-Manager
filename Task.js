@@ -42,12 +42,16 @@ class TaskManager{
         }
         if(state === false){
             task.isCompleted = false;
-            console.log(task);
             this.save();
             return;
         }
         this.save();
     }
+
+    saveEdit(index, newText, oldText){
+        newText.length === 0 ? this.tasks[index].task = oldText : this.tasks[index].task = newText;
+        this.save();
+    }   
 
     getTasks(){
         return this.tasks;

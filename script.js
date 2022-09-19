@@ -3,6 +3,7 @@ renderTasks();
 const addBtn = document.getElementById("addButton");
 const checkButtons = document.querySelectorAll(".btn.check");
 const removeButtons = document.querySelectorAll(".remove");
+const editButtons = document.querySelectorAll(".btn.edit");
 const inputText = document.getElementById("taskInput").value;
 const tasksContainer = document.getElementById("tasksContainer");
 const tasksList = TasksManager.getTasks();
@@ -26,13 +27,16 @@ tasksContainer.addEventListener("click", function (e){
         removeTask(e);
         return;
     }
+    if(e.target.classList.contains("edit") || e.target.classList.contains("bi-pencil-fill")){
+        editTask(e);
+    }
 })
 
 
 // Functions
 function isValid(event){
     const input = document.getElementById("taskInput");
-    if(event.key === "Enter" && input.value.length > minimumCharacters && input.value.length <= maximumCharacters){
+    if(event.key === "Enter" && input.value.length >= minimumCharacters && input.value.length <= maximumCharacters){
         createTask();
         errorContainer.style.opacity = 0;
         return;
@@ -47,7 +51,7 @@ function isValid(event){
     }
 
 
-    if(event.type === "click" && input.value.length > minimumCharacters && input.value.length <= maximumCharacters){
+    if(event.type === "click" && input.value.length >= minimumCharacters && input.value.length <= maximumCharacters){
         console.log(input.value.length);
         createTask();
         errorContainer.style.opacity = 0;
@@ -87,7 +91,7 @@ function checkIcons(task){
 
 function isComplete(task){
     if(task.isCompleted){
-        return "completed"
+        return "task completed"
     }
     if(!task.isCompleted){
         return "task";
@@ -96,13 +100,14 @@ function isComplete(task){
 
 function updateCompletionBtn(button){
     const currentTask = (button.closest(".task"));
+    const currentTaskInput = currentTask.getElementsByTagName("input")[0];
     if(!currentTask.classList.contains("completed")){
         currentTask.classList.add("completed")
-        TasksManager.updateCompletion(TasksManager.getTasks().find(task => task.task === currentTask.innerText), true)
+        TasksManager.updateCompletion(TasksManager.getTasks().find(task => task.task === currentTaskInput.value), true)
         return;
     }else {
         currentTask.classList.remove("completed");
-        TasksManager.updateCompletion(TasksManager.getTasks().find(task => task.task === currentTask.innerText), false);
+        TasksManager.updateCompletion(TasksManager.getTasks().find(task => task.task === currentTaskInput.value), false);
         return;
     }
 }
@@ -110,11 +115,19 @@ function updateCompletionBtn(button){
 function renderTasks(){
     const tasksContainer = document.getElementById("tasksContainer");
     const tasksList = TasksManager.getTasks();
-    let html = "";
     for(let task of tasksList){
-        html += `<div class="task ${isComplete(task)}" data-id="${TasksManager.getTasks().indexOf(task)}">${task.task}<div class="icons"><button class="btn check">${checkIcons(task)}<button class="btn remove"><span><i class="bi bi-trash3"></i></span></button></div></div>`;
+        let taskDiv = document.createElement("div");
+        taskDiv.className = `${isComplete(task)}`;
+        taskDiv.setAttribute(`data-id`, `${TasksManager.getTasks().indexOf(task)}`);
+        const newTaskInput = document.createElement("input");
+        newTaskInput.defaultValue = `${task.task}`;
+        newTaskInput.className = "input-text";
+        newTaskInput.setAttribute("type", "text");
+        newTaskInput.setAttribute("readOnly", "enabled");
+        taskDiv.append(newTaskInput);
+        taskDiv.innerHTML +=`<div class="icons"><button class="btn edit"><span><i class="bi bi-pencil-fill"></i></span><button class="btn check">${checkIcons(task)}<button class="btn remove"><span><i class="bi bi-trash3"></i></span></button></div></div>`;
+        tasksContainer.append(taskDiv);
     }
-    tasksContainer.innerHTML += html;
 }
 
 function createTask(){
@@ -130,7 +143,13 @@ function renderTask(){
     const inputText = document.getElementById("taskInput").value;
     let newTask = document.createElement("div");
     newTask.className = "task";
-    newTask.innerHTML = `${inputText}<div class="icons"><button class="btn check">${checkIcons(newTask)}<button class="btn remove"><span><i class="bi bi-trash3"></i></span></button></div></div>`;
+    const newTaskInput = document.createElement("input");
+    newTaskInput.defaultValue = `${inputText}`;
+    newTaskInput.className = "input-text";
+    newTaskInput.setAttribute("type", "text");
+    newTaskInput.setAttribute("readOnly", "enabled");
+    newTask.append(newTaskInput);
+    newTask.innerHTML += `<div class="icons"><button class="btn edit"><span><i class="bi bi-pencil-fill"></i></span><button class="btn check">${checkIcons(newTask)}<button class="btn remove"><span><i class="bi bi-trash3"></i></span></button></div></div>`;
     newTask.dataset.id = TasksManager.getTasks().length - 1;
     tasksContainer.append(newTask);
     loadEventListener();
@@ -188,3 +207,58 @@ function displayTitle(){
     tasksList.length === 0 ? noTasks.style.display = "block" : noTasks.style.display = "none";
     noTasks.innerHTML = `No tasks to display`;
 }
+
+function editTask(event){
+    const task = event.target.closest(".task");
+    const taskInput = task.getElementsByClassName("input-text")[0];
+    taskInput.removeAttribute("readOnly");
+    taskInput.focus();
+    const TaskInputText = taskInput.value;
+    taskInput.value = "";
+    taskInput.value = TaskInputText;
+    const saveBtn = document.createElement("button");
+    saveBtn.className = "save";
+    saveBtn.innerText = "Save";
+    const currentTaskButtons = task.querySelectorAll(".btn");
+    for(button of currentTaskButtons){
+        button.style.pointerEvents = "none";
+        button.classList.add("disabled");
+        button.style.display = "none";
+    }
+    task.append(saveBtn);
+    saveBtn.addEventListener("click", (e) => {
+        saveEdit(e, saveBtn, currentTaskButtons);
+    });
+    document.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" && taskInput.focus){
+            saveEdit(e, saveBtn, currentTaskButtons);
+            errorContainer.style.opacity = 0;
+        }
+    })
+}
+
+function saveEdit(event, saveButton, taskButtons){
+    const taskInput = event.target.closest(".task");
+    const taskID = taskInput.getAttribute("data-id");
+    const newTaskText = taskInput.getElementsByClassName("input-text")[0];
+    newTaskText.setAttribute("readOnly", "enabled");
+    newTaskText.value.length === 0 ? newTaskText.value = newTaskText.defaultValue : newTaskText.value;
+    TasksManager.saveEdit(taskID, newTaskText.value, newTaskText.defaultValue);
+    newTaskText.defaultValue = newTaskText.value;
+    saveButton.style.display = "none";
+    for(button of taskButtons){
+        button.style.display = "block";
+        button.style.pointerEvents = "all";
+        button.classList.remove("disabled");
+    }
+}
+
+// function alreadyCreated(text){
+//     for(let task of tasksList){
+//         if(task.task === text){ 
+//             errorContainer.style.opacity = 1;
+//             errorContainer.innerText = `You already created this task.`;
+//             return;
+//         }
+//     }
+// }

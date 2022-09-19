@@ -19,7 +19,7 @@ body{
     .container{
         min-width: 100%;
         min-height: 90vh;
-        margin-bottom: 1rem;
+        // margin-bottom: 1rem;
 
         h1.title{
             // color: rgb(230, 230, 230);
@@ -136,6 +136,41 @@ body{
                 border-radius: 5px;
                 transition: background-color 0.4s;
 
+                .input-text{
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    color: rgb(230, 230, 230);
+                    font-family: "Poppins", sans-serif;
+                    font-size: 1rem;
+                }
+                .btn.edit.disabled,
+                .btn.check.disabled,
+                .btn.remove.disabled{
+                    background-color: rgb(30, 30, 30);
+                    border-radius: 5px;
+                }
+                .btn.disabled i{
+                    color: rgb(100, 100, 100);
+                }
+
+                .save{
+                    background-color: transparent;
+                    padding: 0 0.3rem;
+                    font-family: "Poppins", sans-serif;
+                    font-size: 0.9rem;
+                    color: rgb(0, 206, 86);
+                    border: none;
+                    outline: none;
+                    text-align: center;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: background-color 0.2s, color 0.2s;
+                }
+                .save:hover{
+                    background-color: rgba(100, 100, 100, 0.8);
+                }
+
                 .icons{
                     display: flex;
                     gap: 0.2rem;
@@ -163,7 +198,7 @@ body{
                     }
                     
                     .btn:hover span{
-                        background-color: rgba(88, 88, 88, 0.541);
+                        background-color: rgba(88, 88, 88, 0.5);
                     }
 
                     i.bi.bi-check2{
@@ -181,8 +216,24 @@ body{
             }
             .task.completed{
                 background-color: rgb(78, 245, 147);
-                color: rgb(30, 30, 30);
-                font-weight: 500;
+
+                .input-text{
+                    color: rgb(30, 30, 30);
+                    font-weight: 500;
+                }
+
+                .save{
+                    color: rgb(0, 206, 86);
+                    background-color: rgb(80, 80, 80);
+                }
+
+                .save:hover{
+                    background-color: rgb(100, 100, 100);
+                }
+
+                .btn.disabled i{
+                    color: rgb(100, 100, 100);
+                }
 
                 i{
                     color: rgb(30, 30, 30);
@@ -271,6 +322,10 @@ body{
                 box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
                 background-color: rgb(245, 78, 78);
             }
+
+            .input-text{
+                width: 70%;
+            }
         }
     }
 
@@ -357,6 +412,10 @@ body{
 
             .tasks-list-container{
                 width: 40%;
+
+                .input-text{
+                    width: 70%;
+                }
             }
         }
     }
@@ -395,6 +454,10 @@ body{
 
             .tasks-list-container{
                 width: 70%;
+
+                .input-text{
+                    width: 70%;
+                }
             }
         }
     }
