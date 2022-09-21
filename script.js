@@ -140,7 +140,8 @@ function createTask(){
 
 function renderTask(){
     const tasksContainer = document.getElementById("tasksContainer");
-    const inputText = document.getElementById("taskInput").value;
+    let inputText = document.getElementById("taskInput").value;
+    inputText = inputText.charAt(0).toUpperCase() + inputText.slice(1);
     let newTask = document.createElement("div");
     newTask.className = "task";
     const newTaskInput = document.createElement("input");
