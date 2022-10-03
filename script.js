@@ -16,13 +16,15 @@ const isValid = (event) => {
         createTask();
         return;
     }
-    if(event.key === "Enter" && input.value.length < minimumCharacters){
+    if(event.key === "Enter" && input.value.length < minimumCharacters && input.value.length >= 1){
         errorContainer.innerHTML = `Task must contain at least ${minimumCharacters} characters.`;
         showError();
+        return;
     }
     if(event.key === "Enter" && input.value.length > maximumCharacters){
         errorContainer.innerHTML = `Task must not exceed ${maximumCharacters} characters.`;
         showError();
+        return;
     }
 
 
@@ -32,20 +34,37 @@ const isValid = (event) => {
         createTask();
         return;
     }
-    if(event.type === "click" && input.value.length < minimumCharacters){
+    if(event.type === "click" && input.value.length < minimumCharacters && input.value.length >= 1){
         errorContainer.innerHTML = `Task must contain at least ${minimumCharacters} characters.`;
         showError();
+        return;
     }
     if(event.type === "click" && input.value.length > maximumCharacters){
         errorContainer.innerHTML = `Task must not exceed ${maximumCharacters} characters.`;
         showError();
+        return;
     }
+}
+const displayTitle = () => {
+    const tasksList = TasksManager.getTasks();
+    const myTasksTitle = document.getElementById("myTasksTitle");
+    const tasksContainer = document.getElementById("tasksContainer");
+    tasksContainer.innerHTML = "";
+    const noTasks = document.createElement("p");
+    noTasks.setAttribute("id", "noTasks");
+    noTasks.innerHTML = "No tasks to display";
+    tasksContainer.appendChild(noTasks);
+    tasksList.length ? myTasksTitle.style.opacity = 1 : myTasksTitle.style.opacity = 0;
+    console.log(noTasks)
+    tasksList.length ? noTasks.style.display = "none" : noTasks.style.display = "block";
+    noTasks.innerHTML = `No tasks to display`;
 }
 const createTask = () => {
     const tasksContainer = document.getElementById("tasksContainer")
     tasksContainer.innerHTML = "";
     const inputText = document.getElementById("taskInput").value;
     TasksManager.add(inputText);
+    displayTitle();
     renderTasks(tasksList);
     clearInput();
     loadEventListeners();   
@@ -76,14 +95,6 @@ const isComplete = (task) => {
         return "task";
     }
 }
-const displayTitle = () => {
-    const tasksList = TasksManager.getTasks();
-    const myTasksTitle = document.getElementById("myTasksTitle");
-    const noTasks = document.getElementById("noTasks");
-    tasksList.length ? myTasksTitle.style.opacity = 1 : myTasksTitle.style.opacity = 0;
-    tasksList.length ? noTasks.style.display = "none" : noTasks.style.display = "block";
-    noTasks.innerHTML = `No tasks to display`;
-}
 const clearInput = () => {
     const input = document.getElementById("taskInput");
     input.value = "";
@@ -100,9 +111,9 @@ const removeTask = (event) => {
     noTasks.setAttribute("id", "noTasks");
     noTasks.innerHTML = "No tasks to display";
     tasksList.length ? "" : tasksContainer.appendChild(noTasks);
+    displayTitle();
     renderTasks(tasksList);
     loadEventListeners();
-    displayTitle();
     enableClearAllBtn();
 }
 const toggleStatus = (event) => {
@@ -163,8 +174,8 @@ const clearAllTasks = () => {
         TasksManager.remove(tasksList.indexOf(tasksList[task]));
     }
     localStorage.clear();
-    enableClearAllBtn();
     displayTitle();
+    enableClearAllBtn();
     window.location.reload();
 }
 const enableClearAllBtn = () => {

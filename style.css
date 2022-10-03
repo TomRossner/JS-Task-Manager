@@ -103,7 +103,7 @@ body .container .tasks-list-container {
 body .container .tasks-list-container #noTasks {
   font-size: 2rem;
   font-weight: 500;
-  color: rgba(60, 60, 60, 0.9);
+  color: rgba(255, 255, 255, 0.15);
   text-align: center;
   word-wrap: break-word;
   padding: 1.5rem;
