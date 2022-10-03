@@ -8,11 +8,11 @@ const maximumCharacters = 30;
 
 const isValid = (event) => {
     const input = document.getElementById("taskInput");
-    const errorContainer = document.getElementById("errors");
 
     if(event.key === "Enter" && input.value.length >= minimumCharacters && input.value.length <= maximumCharacters){
-        createTask();
+        const errorContainer = document.getElementById("errors");
         errorContainer.style.opacity = 0;
+        createTask();
         return;
     }
     if(event.key === "Enter" && input.value.length < minimumCharacters){
@@ -26,8 +26,9 @@ const isValid = (event) => {
 
 
     if(event.type === "click" && input.value.length >= minimumCharacters && input.value.length <= maximumCharacters){
-        createTask();
+        const errorContainer = document.getElementById("errors");
         errorContainer.style.opacity = 0;
+        createTask();
         return;
     }
     if(event.type === "click" && input.value.length < minimumCharacters){
