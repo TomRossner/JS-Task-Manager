@@ -186,10 +186,18 @@ const loadEventListeners = () => {
     const editButtons = document.querySelectorAll(".edit");
     editButtons.forEach(button => {button.addEventListener("click", (event) => editTask(event))});
 }
+const setFooter = () => {
+    const year = new Date().getFullYear();
+    const footer = document.getElementsByTagName("footer");
+    const footerParagraph = document.createElement("p");
+    footerParagraph.innerHTML = `by Tom Rossner&copy; ${year}`;
+    footer[0].append(footerParagraph);
+}
 
 
 // Init
 
+setFooter();
 displayTitle();
 enableClearAllBtn();
 renderTasks(tasksList);
