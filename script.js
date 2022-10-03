@@ -55,7 +55,6 @@ const displayTitle = () => {
     noTasks.innerHTML = "No tasks to display";
     tasksContainer.appendChild(noTasks);
     tasksList.length ? myTasksTitle.style.opacity = 1 : myTasksTitle.style.opacity = 0;
-    console.log(noTasks)
     tasksList.length ? noTasks.style.display = "none" : noTasks.style.display = "block";
     noTasks.innerHTML = `No tasks to display`;
 }
