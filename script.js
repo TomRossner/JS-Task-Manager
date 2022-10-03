@@ -133,6 +133,7 @@ const editTask = (event) => {
         saveEdit(e, saveBtn, currentTaskButtons);
     });
     document.addEventListener("keydown", (e) => {
+        const errorContainer = document.getElementById("errors");
         if(e.key === "Enter" && taskInput.focus){
             saveEdit(e, saveBtn, currentTaskButtons);
             errorContainer.style.opacity = 0;
