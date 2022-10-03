@@ -27,6 +27,7 @@ const isValid = (event) => {
 
     if(event.type === "click" && input.value.length >= minimumCharacters && input.value.length <= maximumCharacters){
         createTask();
+        errorContainer.style.opacity = 0;
         return;
     }
     if(event.type === "click" && input.value.length < minimumCharacters){
