@@ -34,7 +34,6 @@ class TaskManager{
         this.save();
     }
 
-
     updateStatus(task){
         task.isCompleted = !task.isCompleted;
         this.save();

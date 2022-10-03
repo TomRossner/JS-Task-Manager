@@ -1,44 +1,40 @@
-const addBtn = document.getElementById("addButton");
+const TasksManager = new TaskManager();
+const tasksList = TasksManager.getTasks();
 const minimumCharacters = 3;
 const maximumCharacters = 30;
-const errorContainer = document.getElementById("errors");
-const TasksManager = new TaskManager();
-const noTasks = document.getElementById("noTasks");
-const tasksList = TasksManager.getTasks();
-const myTasksTitle = document.getElementById("myTasksTitle");
 
 
 // Functions
 
 const isValid = (event) => {
     const input = document.getElementById("taskInput");
+    
     if(event.key === "Enter" && input.value.length >= minimumCharacters && input.value.length <= maximumCharacters){
         createTask();
         errorContainer.style.opacity = 0;
         return;
     }
-    if(event.key === "Enter" && input.value.length >= 1){
+    if(event.key === "Enter" && input.value.length < minimumCharacters){
         errorContainer.innerHTML = `Task must contain at least ${minimumCharacters} characters.`;
-        errorContainer.style.opacity = 1;
+        showError();
     }
     if(event.key === "Enter" && input.value.length > maximumCharacters){
         errorContainer.innerHTML = `Task must not exceed ${maximumCharacters} characters.`;
-        errorContainer.style.opacity = 1;
+        showError();
     }
 
 
     if(event.type === "click" && input.value.length >= minimumCharacters && input.value.length <= maximumCharacters){
         createTask();
-        errorContainer.style.opacity = 0;
         return;
     }
-    if(event.type === "click" && input.value.length >= 1 || event.type === "click" && input.value === ""){
+    if(event.type === "click" && input.value.length < minimumCharacters){
         errorContainer.innerHTML = `Task must contain at least ${minimumCharacters} characters.`;
-        errorContainer.style.opacity = 1;
+        showError();
     }
     if(event.type === "click" && input.value.length > maximumCharacters){
         errorContainer.innerHTML = `Task must not exceed ${maximumCharacters} characters.`;
-        errorContainer.style.opacity = 1;
+        showError();
     }
 }
 const createTask = () => {
@@ -77,8 +73,9 @@ const isComplete = (task) => {
     }
 }
 const displayTitle = () => {
-    const myTasksTitle = document.getElementById("myTasksTitle");
     const tasksList = TasksManager.getTasks();
+    const myTasksTitle = document.getElementById("myTasksTitle");
+    const noTasks = document.getElementById("noTasks");
     tasksList.length ? myTasksTitle.style.opacity = 1 : myTasksTitle.style.opacity = 0;
     tasksList.length ? noTasks.style.display = "none" : noTasks.style.display = "block";
     noTasks.innerHTML = `No tasks to display`;
@@ -171,8 +168,10 @@ const enableClearAllBtn = () => {
     tasksList.length ? clearAllBtn.style.display = "block" : clearAllBtn.style.display = "none";
 }
 const loadEventListeners = () => {
+    const addBtn = document.getElementById("addButton");
     addBtn.addEventListener("click", isValid);
-    document.addEventListener("keydown", (e) => {isValid(e);})
+    
+    document.addEventListener("keydown", (e) => isValid(e));
 
     const clearAllBtn = document.getElementById("clearTasks");
     clearAllBtn.addEventListener("click", clearAllTasks);
@@ -185,6 +184,17 @@ const loadEventListeners = () => {
 
     const editButtons = document.querySelectorAll(".edit");
     editButtons.forEach(button => {button.addEventListener("click", (event) => editTask(event))});
+
+    document.addEventListener("load", setFooter);
+}
+const showError = () => {
+    const errorContainer = document.getElementById("errors");
+    errorContainer.style.opacity = 1;
+    errorContainer.style.transition = "";
+    setTimeout(() => {
+        errorContainer.style.opacity = 0;
+        errorContainer.style.transition = "opacity 0.7s";
+    }, 4000);
 }
 const setFooter = () => {
     const year = new Date().getFullYear();
