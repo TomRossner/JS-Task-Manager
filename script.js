@@ -45,19 +45,6 @@ const isValid = (event) => {
         return;
     }
 }
-const displayTitle = () => {
-    const tasksList = TasksManager.getTasks();
-    const myTasksTitle = document.getElementById("myTasksTitle");
-    const tasksContainer = document.getElementById("tasksContainer");
-    tasksContainer.innerHTML = "";
-    const noTasks = document.createElement("p");
-    noTasks.setAttribute("id", "noTasks");
-    noTasks.innerHTML = "No tasks to display";
-    tasksContainer.appendChild(noTasks);
-    tasksList.length ? myTasksTitle.style.opacity = 1 : myTasksTitle.style.opacity = 0;
-    tasksList.length ? noTasks.style.display = "none" : noTasks.style.display = "block";
-    noTasks.innerHTML = `No tasks to display`;
-}
 const createTask = () => {
     const tasksContainer = document.getElementById("tasksContainer")
     tasksContainer.innerHTML = "";
@@ -166,6 +153,19 @@ const saveEdit = (event, saveButton, taskButtons) => {
         button.style.pointerEvents = "all";
         button.classList.remove("disabled");
     }
+}
+const displayTitle = () => {
+    const tasksList = TasksManager.getTasks();
+    const myTasksTitle = document.getElementById("myTasksTitle");
+    const tasksContainer = document.getElementById("tasksContainer");
+    tasksContainer.innerHTML = "";
+    const noTasks = document.createElement("p");
+    noTasks.setAttribute("id", "noTasks");
+    noTasks.innerHTML = "No tasks to display";
+    tasksContainer.appendChild(noTasks);
+    tasksList.length ? myTasksTitle.style.opacity = 1 : myTasksTitle.style.opacity = 0;
+    tasksList.length ? noTasks.style.display = "none" : noTasks.style.display = "block";
+    noTasks.innerHTML = `No tasks to display`;
 }
 const clearAllTasks = () => {
     const tasksList = TasksManager.getTasks();
