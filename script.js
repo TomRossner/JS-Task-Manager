@@ -8,7 +8,8 @@ const maximumCharacters = 30;
 
 const isValid = (event) => {
     const input = document.getElementById("taskInput");
-    
+    const errorContainer = document.getElementById("errors");
+
     if(event.key === "Enter" && input.value.length >= minimumCharacters && input.value.length <= maximumCharacters){
         createTask();
         errorContainer.style.opacity = 0;
