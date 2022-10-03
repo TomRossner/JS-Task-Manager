@@ -46,10 +46,6 @@ const createTask = () => {
     tasksContainer.innerHTML = "";
     const inputText = document.getElementById("taskInput").value;
     TasksManager.add(inputText);
-    const myTasksTitle = document.createElement("h2");
-    myTasksTitle.className = "title";
-    myTasksTitle.innerHTML = `My Tasks`;
-    tasksList.length ? tasksContainer.append(myTasksTitle) : "";
     renderTasks(tasksList);
     clearInput();
     loadEventListeners();   
