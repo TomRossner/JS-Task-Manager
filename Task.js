@@ -1,14 +1,13 @@
 class Task{
     constructor(text){
+        this.id = TasksManager.getTasks().length + 1;
         this.task = text,
-        this.isCompleted = false,
-        this.dateCreated = new Date().toLocaleString();
+        this.isCompleted = false;
     }
 }
 
 class TaskManager{
     tasks = [];
-    id = this.tasks.length + 1;
     constructor() {
         this.load();
     }
@@ -25,26 +24,18 @@ class TaskManager{
     }
 
     add(text){
-        const task = new Task(text)
+        const task = new Task(text);
         this.tasks.push(task);
         this.save();
     }
-    deleteTask(index){
-        this.tasks.splice(Number(index), 1);
+
+    remove(id){
+        this.tasks.splice(Number(id), 1);
         this.save();
     }
 
-    updateCompletion(task, state){
-        if(state === true){
-            task.isCompleted = true;
-            this.save();
-            return;
-        }
-        if(state === false){
-            task.isCompleted = false;
-            this.save();
-            return;
-        }
+    updateStatus(task){
+        task.isCompleted = !task.isCompleted;
         this.save();
     }
 
