@@ -3,6 +3,8 @@ const tasksList = TasksManager.getTasks();
 const minimumCharacters = 3;
 const maximumCharacters = 30;
 
+
+
 // Functions
 
 const isValid = (event) => {
@@ -209,6 +211,8 @@ const setFooter = () => {
     footerParagraph.innerHTML = `by Tom Rossner&copy; ${year}`;
     footer[0].append(footerParagraph);
 }
+
+
 
 // Init
 
