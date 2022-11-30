@@ -71,6 +71,7 @@ const renderTasks = (list) => {
         taskDiv.append(newTaskInput);
         taskDiv.innerHTML +=`<div class="icons"><button class="btn edit"><span><i class="bi bi-pencil-fill"></i></span><button class="btn remove"><span><i class="bi bi-trash3"></i></span></button></div></div>`;
         tasksContainer.append(taskDiv);
+        return element;
     })
 }
 const clearInput = () => {
