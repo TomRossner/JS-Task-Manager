@@ -217,3 +217,4 @@ setFooter();
 displayTitle();
 enableClearAllBtn();
 renderTasks(tasksList);
+loadEventListeners();
